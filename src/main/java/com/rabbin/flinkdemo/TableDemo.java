@@ -54,6 +54,7 @@ public class TableDemo {
                 ")");
 
         Table table = tEnv.sqlQuery("select * from transactions");
+        System.out.println(table.explain());
         TableResult result = table.executeInsert("transactions_result");
         System.out.println("await");
         result.await();
