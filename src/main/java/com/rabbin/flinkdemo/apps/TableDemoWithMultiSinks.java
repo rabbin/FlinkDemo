@@ -1,4 +1,4 @@
-package com.rabbin.flinkdemo;
+package com.rabbin.flinkdemo.apps;
 
 import org.apache.flink.table.api.*;
 

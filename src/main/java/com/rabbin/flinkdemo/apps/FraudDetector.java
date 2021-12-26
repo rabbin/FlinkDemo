@@ -1,4 +1,4 @@
-package com.rabbin.flinkdemo;
+package com.rabbin.flinkdemo.apps;
 
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
@@ -86,15 +86,18 @@ public class FraudDetector extends KeyedProcessFunction<String, FraudDetector.Tr
         public void run(SourceContext<Transaction> sourceContext) {
 
         }
+
         @Override
         public void cancel() {
 
         }
 
     }
+
     private static class AlertSink implements SinkFunction<Alert> {
 
     }
+
     public static class Alert {
         private String id;
 
@@ -103,6 +106,7 @@ public class FraudDetector extends KeyedProcessFunction<String, FraudDetector.Tr
         }
 
     }
+
     public static class Transaction {
         private double amount;
 
@@ -117,6 +121,7 @@ public class FraudDetector extends KeyedProcessFunction<String, FraudDetector.Tr
         }
 
     }
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -129,8 +134,7 @@ public class FraudDetector extends KeyedProcessFunction<String, FraudDetector.Tr
                 .process(new FraudDetector())
                 .name("fraud-detector");
 
-        alerts
-                .addSink(new AlertSink())
+        alerts.addSink(new AlertSink())
                 .name("send-alerts");
 
         env.execute("Fraud Detection");
